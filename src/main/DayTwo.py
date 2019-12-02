@@ -24,20 +24,40 @@ def opt2(input_arr, start_index):
     return input_arr[input_arr[1 + start_index]] * input_arr[input_arr[2 + start_index]]
 
 
-data = get_input_csv()
-i = 0
-data[1] = 12
-data[2] = 2
+def run_program(data, noun, verb):
+    i = 0
+    data[1] = noun
+    data[2] = verb
+    y = data.__len__()
+    while data[i] != 99:
+        if data[i] == 1:
+            data[data[i + 3]] = opt1(data, i)
+        elif data[i] == 2:
+            data[data[i + 3]] = opt2(data, i)
+        if (i + 4) <= y:
+            i += 4
+        else:
+            break
+    return data[0]
 
-y = data.__len__()
-while data[i] != 99:
-    if data[i] == 1:
-        data[data[i + 3]] = opt1(data, i)
-    elif data[i] == 2:
-        data[data[i + 3]] = opt2(data, i)
-    if (i + 4) <= y:
-        i += 4
+
+data = get_input_csv()
+print(run_program(data, 12, 2))
+
+iter_noun = 0
+iter_verb = 0
+
+while data[0] != 19690720:
+    data = get_input_csv()
+    run_program(data, iter_noun, iter_verb)
+    if data[0] == 19690720:
+        break
+    if iter_noun < 99:
+        iter_noun += 1
+    elif iter_verb < 99:
+        iter_noun = 0
+        iter_verb += 1
     else:
         break
 
-print(data[0])
+print(100 * iter_noun + iter_verb)
