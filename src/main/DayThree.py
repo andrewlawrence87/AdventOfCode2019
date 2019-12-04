@@ -1,6 +1,6 @@
 import os
 import pprint
-from classes import DayThreeMaze
+from src.main.classes.DayThreeMaze import DayThreeMaze
 
 
 def get_input_csv():
@@ -16,38 +16,12 @@ def get_input_csv():
     return cols
 
 
-def move_right(input_arr, current_pos, no_moves):
-    for k in range(0, no_moves):
-        current_pos[1] += 1
-        input_arr[current_pos[0]][current_pos[1]] += 1
+current_pos = [0, 0]
+grid = DayThreeMaze(10, current_pos)
 
-
-def move_down(input_arr, current_pos, no_moves):
-    for k in range(0, no_moves):
-        current_pos[0] += 1
-        input_arr[current_pos[0]][current_pos[1]] += 1
-
-
-grid = DayThreeMaze
-
-
-# def initialise_grid():
-#     x = []
-#     for row in range(10):
-#         x.append([])
-#
-#     for row in x:
-#         for col in range(10):
-#             row.append(0)
-#     return x
-
+grid.move_down(5)
+grid.move_right(5)
 
 data = get_input_csv()
-current_pos = [0, 0]
-grid = initialise_grid()
-
-move_right(grid, current_pos, 2)
-
-move_down(grid, current_pos, 2)
-
-pprint.pprint(grid)
+# print(grid.grid)
+pprint.pprint(grid.grid)
