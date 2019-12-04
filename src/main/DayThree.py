@@ -16,12 +16,14 @@ def get_input_csv():
     return cols
 
 
-current_pos = [0, 0]
-grid = DayThreeMaze(10, current_pos)
 
-grid.move_down(5)
-grid.move_right(5)
+starting_pos = [500, 500]
+grid = DayThreeMaze(1000, starting_pos)
 
+grid.move_up(7)
+grid.move_right(6)
 data = get_input_csv()
 # print(grid.grid)
-pprint.pprint(grid.grid)
+pprint.pprint(grid.crossover_points)
+
+grid.calculate_closest_crossover()
