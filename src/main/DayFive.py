@@ -28,6 +28,20 @@ def opt1_2(input_arr, start_index, param1_mode, param2_mode, op_code):
         return x * y
 
 
+def opt3(input_arr, start_index, param1_mode, input):
+    if param1_mode == 0:
+        input_arr[input_arr[start_index + 1]] = input
+    if param1_mode == 1:
+        input_arr[start_index + 1] = input
+
+
+def opt4(input_arr, start_index, param1_mode):
+    if param1_mode == 0:
+        print(input_arr[input_arr[start_index + 1]])
+    if param1_mode == 1:
+        print(input_arr[start_index + 1])
+
+
 def convert_int_to_string(i):
     s = str(i)
     while s.__len__() < 4:
@@ -41,16 +55,19 @@ def run_program(data, input):
     inc = 0
     while data[i] != 99:
         s = convert_int_to_string(data[i])
-        if data[i] == 1 or data[i] == 2:
-            data[data[i + 3]] = opt1_2(data, i, s[0], s[1], data[i])
+        param1_mode = int(s[1])
+        param2_mode = int(s[0])
+        op_code = int(s[3])
+        if op_code == 1 or op_code == 2:
+            data[data[i + 3]] = opt1_2(data, i, param1_mode, param2_mode, op_code)
             inc = 4
-        elif data[i] == 3:
-            data[data[i + 1]] = input
+        elif op_code == 3:
+            opt3(data, i, param1_mode, input)
             inc = 2
-        elif data[i] == 4:
-            print(data[i + 1])
+        elif op_code == 4:
+            opt4(data, i, param1_mode)
             inc = 2
-        if (i + inc) <= y:
+        if (i + inc) < y:
             i += inc
         else:
             break
@@ -60,21 +77,3 @@ def run_program(data, input):
 data = get_input_csv()
 
 run_program(data, 1)
-
-# iter_noun = 0
-# iter_verb = 0
-#
-# while data[0] != 19690720:
-#     data = get_input_csv()
-#     run_program(data, iter_noun, iter_verb)
-#     if data[0] == 19690720:
-#         break
-#     if iter_noun < 99:
-#         iter_noun += 1
-#     elif iter_verb < 99:
-#         iter_noun = 0
-#         iter_verb += 1
-#     else:
-#         break
-#
-# print(100 * iter_noun + iter_verb)
